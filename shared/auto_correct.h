@@ -12,10 +12,6 @@
  * automatically replace the previous word
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 struct CorrectionBuffer {
   char *last_word;           // used if user reverts correction
   char **frequent_words[25]; // 25 words will be cached for fast search of
