@@ -1,4 +1,4 @@
-#include "autocorrect.h"
+#include "auto_correct.h"
 
 #include <ctype.h>
 #include <limits.h>

@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <limits.h>
 
+#include "word_trie.h"
+
 void print_words(struct TrieNode *root, char *word) {
   struct TrieNode temp = *root;
   for (int i = 0; i < N; ++i) {
@@ -86,7 +88,7 @@ void calculate_levenshtein_distance(
   }
 }
 
-void read_words(struct TrieNode *root, char *word, char *typed_word,
+extern void read_words(struct TrieNode *root, char *word, char *typed_word,
                 int *num_suggestions, int *min_distance,
                 char suggestions[MAX_SUGGESTIONS][MAX_LENGTH + 1]) {
   struct TrieNode temp = *root;
@@ -113,7 +115,7 @@ void read_words(struct TrieNode *root, char *word, char *typed_word,
   }
 }
 
-int suggest(const char *word,
+extern int suggest(const char *word,
              char suggestions[MAX_SUGGESTIONS][MAX_LENGTH + 1]) {
   if (check(word) == true) {
     // Already correct

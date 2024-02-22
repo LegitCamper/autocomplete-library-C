@@ -71,13 +71,13 @@ def add_char_to_trie(fword, word, loc):
 
 
 def main():
-    with open("../shared/dict.txt", "r") as file:
+    with open("../dict.txt", "r") as file:
         dict_words = [line.strip() for line in file]
 
     for word in dict_words:
         add_char_to_trie(word, word, loc=1)
 
-    header_file = "../autocorrect.h"
+    header_file = "word_trie.h"
     if os.path.exists(header_file):
         os.remove(header_file)
     with open(header_file, "w") as file:
@@ -94,13 +94,6 @@ def main():
         file.write(
             f"struct TrieNode TRIE_ROOT = {{ .children = {format_array(root_children, 0)}, .is_leaf = 0 }};"
         )
-
-        # concat headers
-        with open("../large-fast/func.h") as infile:
-            file.write("\n\n")
-            file.write(infile.read())
-        with open("../shared/auto_correct.h") as infile:
-            file.write(infile.read())
 
 
 main()

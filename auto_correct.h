@@ -12,6 +12,19 @@
  * automatically replace the previous word
  */
 
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+// dynamic include depending on trie implementation
+#if defined( LARGE_FAST )
+  #include "large-fast/func.h"
+#elif SMALL_SLOW 
+  #include "small-slow/func.h"
+#else
+  #error Unknown header implementation
+#endif
+
 struct CorrectionBuffer {
   char *last_word;           // used if user reverts correction
   char **frequent_words[25]; // 25 words will be cached for fast search of
@@ -25,3 +38,20 @@ struct CorrectionBuffer buffer = {
     .last_word = "",
     .frequent_words = {},
 };
+
+void add_char(char c) {
+  int lwordsize = strlen(buffer.last_word);
+  char *newword = malloc(lwordsize + 2);
+  strcpy(newword, buffer.last_word);
+  newword[lwordsize] = c;
+  newword[lwordsize+1] = '\0';
+  buffer.last_word = newword;
+}
+
+void remove_char() {
+  int lwordsize = strlen(buffer.last_word);
+  buffer.last_word[lwordsize] = '\0';
+
+  // maybe this is not needed
+  buffer.last_word[lwordsize + 1] = 0;
+}
